@@ -58,7 +58,8 @@ int main(void){
         else if(a + b <= d){                    
             ans = 2;
         }
-		// will not check for (b + c) and (a + c) as ATQ, a <= b <= cif the sum of two smallest numbers is not smaller than the size of the bag, then any other permutation will not be smaller than the bag size.
+/* will not check for (b + c) and (a + c) as ATQ, a <= b <= cif the sum of two smallest numbers is not smaller than the size of the bag, 
+then any other permutation will not be smaller than the bag size. */
         else{
             ans = 3;
         }
