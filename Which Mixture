@@ -27,7 +27,7 @@ typedef pair<ll,ll> ii;
 #define all(x) (x).begin(), (x).end()
 
 ll mulMod(ll a, ll b){
-    ll ans = ((a % MOD) * (b % MOD)) % MOD;
+    ll ans = ((a % INF) * (b % INF)) % INF;
     return ans;
 }
 
