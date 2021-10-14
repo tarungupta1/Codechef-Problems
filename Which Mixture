@@ -1,0 +1,67 @@
+Problem Name: Which Mixture 
+Problem Tag: MIXTURE
+Link: https://www.codechef.com/problems/MIXTURE
+
+Question
+Chef has A units of solid and B units of liquid. He combines them to create a mixture. What kind of mixture does Chef produce: a solution, a solid, or a liquid?
+A mixture is called :
+1) A solution if A>0 and B>0,
+2) A solid if B=0, or
+3) A liquid if A=0.
+
+
+Solution
+
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+const ll INF = 1e9+7;
+const ll MOD = 998244353;
+typedef pair<ll,ll> ii;
+#define iii pair<ll,ii>
+#define f(i,a,b) for(ll i = a;i < b;i++)
+#define pb push_back
+#define vll vector<ll>
+#define F first
+#define S second
+#define all(x) (x).begin(), (x).end()
+
+ll mulMod(ll a, ll b){
+    ll ans = ((a % MOD) * (b % MOD)) % MOD;
+    return ans;
+}
+
+ll modPow(ll a, ll b){
+        
+    ll ans = 1;
+    while(b > 0){
+        if((b & 1) != 0){
+            ans = mulMod(ans, a);
+        }
+        
+        b >>= 1;
+        a = mulMod(a, a);
+    }
+    
+    return ans;
+}
+    
+int main(void){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    int t;  cin>>t;
+    while(t--){
+
+        int a, b;   cin>>a>>b;
+        if(a > 0  &&  b > 0){
+            cout<<"Solution\n";
+        }
+        else if(a > 0){
+            cout<<"Solid\n";
+        }
+        else if(b > 0){
+            cout<<"Liquid\n";
+        }
+    }
+}
