@@ -1,2 +1,2 @@
-# Codechef-Problem
+# Codechef-Problems
 Solution to Codechef Problems
