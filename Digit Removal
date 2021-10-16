@@ -1,6 +1,6 @@
 Problem Name: Digit Removal 
 Problem Tag: DIGITREM
-Link: https://www.codechef.com/OCT21B/problems/DIGITREM
+Link: https://www.codechef.com/problems/DIGITREM
 
 Question
 You are given an integer N and a digit D. Find the minimum non-negative integer you should add to N such that the final value of N does not contain the digit D.
