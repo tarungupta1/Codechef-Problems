@@ -3,12 +3,11 @@ Problem Tag: ANDSUBAR
 Link: https://www.codechef.com/problems/ANDSUBAR
 
 Question
-You are given an integer N. Consider the sequence containing the integers 1,2,…,N in increasing order (each exactly once). Find the length of the longest subarray in this sequence such that the bitwise AND of all elements in the subarray is positive.
-
+You are given an integer N. Consider the sequence containing the integers 1,2,…,N in increasing order (each exactly once). Find the length of the longest subarray in this 
+sequence such that the bitwise AND of all elements in the subarray is positive.
 
 Explanation
 Link: https://youtu.be/slbn0OUnJhk
-
 
 Solution
 
@@ -16,46 +15,6 @@ Solution
 #include <iostream>
 using namespace std;
 typedef long long ll;
-const ll INF = 1e9+7;
-const ll MOD = 998244353;
-typedef pair<ll,ll> ii;
-#define iii pair<ll,ii>
-#define f(i,a,b) for(ll i = a;i < b;i++)
-#define pb push_back
-#define vll vector<ll>
-#define F first
-#define S second
-#define all(x) (x).begin(), (x).end()
-
-ll mulMod(ll a, ll b){
-    ll ans = ((a % INF) * (b % INF)) % INF;
-    return ans;
-}
-
-ll modPow(ll a, ll b){
-        
-    ll ans = 1;
-    while(b > 0){
-        if((b & 1) != 0){
-            ans = mulMod(ans, a);
-        }
-        
-        b >>= 1;
-        a = mulMod(a, a);
-    }
-    
-    return ans;
-}
-    
-int largest_power(int n){
-    
-    int p = 1;
-    while(2 * p <= n){
-        p *= 2;
-    }
-    
-    return p;
-}
 
 int main(void){
     ios_base::sync_with_stdio(0);
@@ -63,7 +22,6 @@ int main(void){
     cout.tie(0);
     int t;  cin>>t;
     while(t--){
-
         int n;  cin>>n;
         
         int digits = int(log(n)/log(2));
