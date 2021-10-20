@@ -1,0 +1,86 @@
+Problem Name: Minimise the Size 
+Problem Tag: MINSZ
+Link: https://www.codechef.com/problems/MINSZ
+
+Question
+Consider an array A={a1,a2,...,an} of size n≥1. If ak=2x−1 for all 1≤k≤n, for some integer x (1≤x≤60), then A is called interesting array. You are given a number C. 
+Find any interesting array A of minimum possible size such that a1⨁a2⨁...⨁an=C, where ⨁ represents bitwise XOR operation. If there exists multiple such arrays, 
+output any one.
+
+Video Link: https://youtu.be/mjTvSPxN2Vo
+
+Solution
+
+APPROACH 1
+
+
+
+APPROACH 2
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef {
+    public static void main(String[] args) throws java.lang.Exception {
+        // your code goes here
+        Scanner scn = new Scanner(System.in);
+        int t = scn.nextInt();
+        StringBuilder sb = new StringBuilder();
+        while (t--> 0) {
+            Long n = scn.nextLong();
+
+            // Edge Case
+            if (n == 0) {
+                sb.append("2\n1 1\n");
+                continue;
+            }
+
+            // Note: XOR of even 1's will make the answer '0' and XOR of odd 1's will make the answer '1'
+
+            // stores all the elements
+            ArrayList < Long > al = new ArrayList < > ();
+
+            // we will check from highest bit to lowest
+            for (int i = 60; i >= 0; i--) {
+                /* checking the bit on ith position
+                1. creating a number that has set bit on ith position and reset bits on other positions
+                2. using "and" operator between number 'n' and temporary number 'num' 
+                3. checking the ith bit by dividing it 'i' times
+                4. if "and" operation gives '1' this means number 'n' has 1 else has 0
+                */
+                long num = 1 L << i;
+
+                if (((num & n) >> i) == 1) {
+                    if (al.size() % 2 == 0) {
+                        // if we xor all the numbers present in the ArrayList, then at ith position we will get '0' (as number of elements present are even) but 
+                        // we want 1. So we have to add a number to change the bit
+
+                        // as we want all 1's from ith bit we can take a number which is 2^(i+1) and subtract 1 to get all 1's from ith bit
+                        long k = 1 L << (i + 1);
+                        k--;
+                        al.add(k);
+                    }
+                } else {
+                    if (al.size() % 2 == 1) {
+                        // if we xor all the numbers present in the ArrayList, then at ith position we will get '1' (as number of elements present are odd) but 
+                        // we want 0. So we have to add a number to change the bit
+
+                        // as we want all 1's from ith bit we can take a number which is 2^(i+1) and subtract 1 to get all 1's from ith bit
+                        long k = 1 L << (i + 1);
+                        k--;
+                        al.add(k);
+                    }
+                }
+            }
+
+            // printing
+            sb.append(al.size() + "\n");
+            for (int i = 0; i < al.size(); i++) {
+                sb.append(al.get(i) + " ");
+            }
+            sb.append("\n");
+        }
+
+        System.out.println(sb);
+    }
+}
