@@ -12,42 +12,10 @@ Solution
 #include <bits/stdc++.h>
 #include <iostream>
 using namespace std;
-typedef long long ll;
-const ll INF = 1e9+7;
-const ll MOD = 998244353;
-typedef pair<ll,ll> ii;
-#define iii pair<ll,ii>
-#define f(i,a,b) for(ll i = a;i < b;i++)
-#define pb push_back
-#define vll vector<ll>
-#define F first
-#define S second
-#define all(x) (x).begin(), (x).end()
-
-ll mulMod(ll a, ll b){
-    ll ans = ((a % INF) * (b % INF)) % INF;
-    return ans;
-}
-
-ll modPow(ll a, ll b){
-        
-    ll ans = 1;
-    while(b > 0){
-        if((b & 1) != 0){
-            ans = mulMod(ans, a);
-        }
-        
-        b >>= 1;
-        a = mulMod(a, a);
-    }
-    
-    return ans;
-}
     
 int main(void){
     ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
+    cin.tie(0);    cout.tie(0);
     int t;  cin>>t;
     while(t--){
         int a, b, c, d;   cin>>a>>b>>c>>d;
@@ -59,8 +27,8 @@ int main(void){
         else if(a + b <= d){                    
             ans = 2;
         }
-/* will not check for (b + c) and (a + c) as ATQ, a <= b <= cif the sum of two smallest numbers is not smaller than the size of the bag, 
-then any other permutation will not be smaller than the bag size. */
+        /* will not check for (b + c) and (a + c) as ATQ, a <= b <= cif the sum of two smallest numbers is not smaller than the size of the bag, 
+        then any other permutation will not be smaller than the bag size. */
         else{
             ans = 3;
         }
