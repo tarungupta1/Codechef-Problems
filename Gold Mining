@@ -22,12 +22,12 @@ int main(void){
         int n, x, y;   cin>>n>>x>>y;
         
 	    int max_weight = (n+1) * y;
-	    
+
 	    if(max_weight < x){
-	        cout<<"NO\n";
+		cout<<"NO\n";
 	    }
 	    else{
-            	cout<<"YES\n";
+		cout<<"YES\n";
 	    }
     }
     return 0;
