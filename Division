@@ -1,0 +1,94 @@
+Problem Name: Division 
+Problem Tag: DIVEO
+Link: https://www.codechef.com/problems/DIVEO
+
+Question
+Chef has an integer N. He repeats the following operation until N becomes 1. Chef chooses an integer X such that X>1 and X is a divisor of N and then divides N by X 
+(the new value of N becomes N/X). If X is even, Chef gets A points otherwise he gets B points. Can you find the maximum points Chef can get if he performs the operations 
+optimally?
+
+Video Link: https://youtu.be/2m6PHHda7S4
+
+Solution
+
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+    
+int main(void){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    int t;  cin>>t;
+    while(t--){
+        int n, a, b;   cin>>n>>a>>b;
+        
+        int even = 0, odd = 0;
+        
+        // prime factorisation
+        int temp = n;
+        for(int i=2; i*i <= temp; i++){
+            
+            while(temp % i == 0){
+                temp = temp / i;
+                
+                if(i % 2 == 0){
+                    even++;
+                }
+                else{
+                    odd++;
+                }
+            }
+        }
+        
+        if(temp > 1){
+             if(temp % 2 == 0){
+                 even++;
+             }
+             else{
+                 odd++;
+             }
+        }
+        
+        int ans;
+        if(a >= 0  &&  b >= 0){     // both positive
+            ans = (even * a) + (odd * b);   // dividing all factors individually is best
+        }
+        else if(a >= 0){    // when b is negative i.e. dividing by odd will decrease the answer
+            if(even != 0){
+                // if we have even factors available, then clubbing odd factors with one even will result in even factor and dividing all even factors individually 
+                // will give best answer
+                ans = (even * a);   
+            }
+            else{
+                // if we don't have even factors, then clubbing odd factors together will result in odd factor and then dividing that only will be the best answer
+                ans = b;
+            }
+        }
+        else if(b >= 0){    // when a is negative i.e. dividing by even will decrease the answer
+            if(even != 0){
+                // if we have even factors available, then clubbing even factors will result in an even factor which we can divide alone, and then dividing all odd 
+                // factors individually will result in best answer
+                ans = (odd * b) + a;
+            }
+            else{
+                // if we dont have even factors, then dividing all odd factors individually will give best answer
+                ans = (odd * b);
+            }
+        }
+        else{   // both negative
+            if(even != 0){
+                // if we have even factors available, then combining all odd and even factors will result in an even factor which we can use to divide the number, 
+                // giving the optimal answer
+                ans = a;
+            }
+            else{
+                // if we have no even factor available, then combining all odd factors will result in an odd factor which we can use to divide the number, 
+                // giving the optimal answer
+                ans = b;
+            }
+        }
+        
+        cout<<ans<<"\n";
+    }
+}
