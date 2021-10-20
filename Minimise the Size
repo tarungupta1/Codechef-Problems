@@ -23,16 +23,16 @@ int main(void) {
     cin.tie(0);    cout.tie(0);
     int t;    cin >> t;
     while (t--) {
-        ll n;        cin >> n;
+        ll n;   cin >> n;
 
         ll curr_xor = 0;
-        std::vector < ll > v;
+        std::vector <ll> v;
         for (int i = 60; i >= 0; i--) {
-            ll b1 = (1 ll << i) & n;
-            ll b2 = (1 ll << i) & curr_xor;
+            ll b1 = (1ll << i) & n;
+            ll b2 = (1ll << i) & curr_xor;
 
             if (b1 != b2) {
-                ll num = (1 ll << (i + 1)) - 1;
+                ll num = (1ll << (i + 1)) - 1;
                 v.push_back(num);
                 curr_xor ^= num;
             }
@@ -85,7 +85,7 @@ class Codechef {
                     3. checking the ith bit by dividing it 'i' times
                     4. if "and" operation gives '1' this means number 'n' has 1 else has 0
                 */
-                long num = 1 L << i;
+                long num = 1L << i;
 
                 if (((num & n) >> i) == 1) {
                     if (al.size() % 2 == 0) {
@@ -93,7 +93,7 @@ class Codechef {
                         // we want 1. So we have to add a number to change the bit
 
                         // as we want all 1's from ith bit we can take a number which is 2^(i+1) and subtract 1 to get all 1's from ith bit
-                        long k = 1 L << (i + 1);
+                        long k = 1L << (i + 1);
                         k--;
                         al.add(k);
                     }
@@ -104,7 +104,7 @@ class Codechef {
                         // we want 0. So we have to add a number to change the bit
 
                         // as we want all 1's from ith bit we can take a number which is 2^(i+1) and subtract 1 to get all 1's from ith bit
-                        long k = 1 L << (i + 1);
+                        long k = 1L << (i + 1);
                         k--;
                         al.add(k);
                     }
