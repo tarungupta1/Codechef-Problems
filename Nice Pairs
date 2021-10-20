@@ -8,11 +8,9 @@ Given a string S of length N containing only numeric characters, find the number
 Solution
 
 APPROACH 1
-
 import java.util.*;
 import java.lang.*;
 import java.io.*;
-
 class Codechef {
 	public static void main (String[] args) throws java.lang.Exception	{
 		// your code goes here
@@ -75,7 +73,6 @@ video Link: https://www.youtube.com/watch?v=1-cDspWMv_k
 import java.util.*;
 import java.lang.*;
 import java.io.*;
-
 class Codechef {
     public static void main(String[] args) throws java.lang.Exception {
         // your code goes here
