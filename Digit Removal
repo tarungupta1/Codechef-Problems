@@ -13,9 +13,7 @@ n = 5825, d = 8, so, we can find the diff between 5900 and 5825, which will be 7
 n = 1323, d = 3, so, we can find the diff between 1324 and 1323, which will be 1. Then again we find the diff between 1400 and 1324, which will be 76. so Total ans will be 77.
 After changing the number we have to start checking again from right to left
 
-
 Video Link: https://youtu.be/SuPZa-Lmatk
-
 
 Solution
 
@@ -24,46 +22,14 @@ Solution
 #include <string>
 using namespace std;
 typedef long long ll;
-const ll INF = 1e9+7;
-const ll MOD = 998244353;
-typedef pair<ll,ll> ii;
-#define iii pair<ll,ii>
-#define f(i,a,b) for(ll i = a;i < b;i++)
-#define pb push_back
-#define vll vector<ll>
-#define F first
-#define S second
-#define all(x) (x).begin(), (x).end()
-
-ll mulMod(ll a, ll b){
-    ll ans = ((a % INF) * (b % INF)) % INF;
-    return ans;
-}
-
-ll modPow(ll a, ll b){
-        
-    ll ans = 1;
-    while(b > 0){
-        if((b & 1) != 0){
-            ans = mulMod(ans, a);
-        }
-        
-        b >>= 1;
-        a = mulMod(a, a);
-    }
-    
-    return ans;
-}
     
 int main(void){
     ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
+    cin.tie(0);    cout.tie(0);
     int t;  cin>>t;
     while(t--){
-
         int n, d;   cin>>n>>d;
-        
+       
         string str = to_string(n);
         int sum = 0;
         int pow = 1;        
