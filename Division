@@ -7,6 +7,7 @@ Chef has an integer N. He repeats the following operation until N becomes 1. Che
 (the new value of N becomes N/X). If X is even, Chef gets A points otherwise he gets B points. Can you find the maximum points Chef can get if he performs the operations 
 optimally?
 
+Editorial Link: https://discuss.codechef.com/t/diveo-editorial/95264
 Video Link: https://youtu.be/2m6PHHda7S4
 
 Solution
