@@ -12,6 +12,44 @@ Video Link: https://youtu.be/mjTvSPxN2Vo
 Solution
 
 APPROACH 1
+#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+using namespace std;
+typedef long long ll;
+
+int main(void) {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);    cout.tie(0);
+    int t;    cin >> t;
+    while (t--) {
+        ll n;        cin >> n;
+
+        ll curr_xor = 0;
+        std::vector < ll > v;
+        for (int i = 60; i >= 0; i--) {
+            ll b1 = (1 ll << i) & n;
+            ll b2 = (1 ll << i) & curr_xor;
+
+            if (b1 != b2) {
+                ll num = (1 ll << (i + 1)) - 1;
+                v.push_back(num);
+                curr_xor ^= num;
+            }
+        }
+
+        if (v.size() == 0) {
+            v.push_back(1);
+            v.push_back(1);
+        }
+
+        cout << v.size() << "\n";
+        for (int i = 0; i < v.size(); i++) {
+            cout << v[i] << " ";
+        }
+        cout << "\n";
+    }
+}
 
 
 
@@ -19,7 +57,6 @@ APPROACH 2
 import java.util.*;
 import java.lang.*;
 import java.io.*;
-
 class Codechef {
     public static void main(String[] args) throws java.lang.Exception {
         // your code goes here
@@ -39,14 +76,14 @@ class Codechef {
 
             // stores all the elements
             ArrayList < Long > al = new ArrayList < > ();
-
+            
             // we will check from highest bit to lowest
             for (int i = 60; i >= 0; i--) {
                 /* checking the bit on ith position
-                1. creating a number that has set bit on ith position and reset bits on other positions
-                2. using "and" operator between number 'n' and temporary number 'num' 
-                3. checking the ith bit by dividing it 'i' times
-                4. if "and" operation gives '1' this means number 'n' has 1 else has 0
+                    1. creating a number that has set bit on ith position and reset bits on other positions
+                    2. using "and" operator between number 'n' and temporary number 'num' 
+                    3. checking the ith bit by dividing it 'i' times
+                    4. if "and" operation gives '1' this means number 'n' has 1 else has 0
                 */
                 long num = 1 L << i;
 
@@ -60,7 +97,8 @@ class Codechef {
                         k--;
                         al.add(k);
                     }
-                } else {
+                } 
+                else {
                     if (al.size() % 2 == 1) {
                         // if we xor all the numbers present in the ArrayList, then at ith position we will get '1' (as number of elements present are odd) but 
                         // we want 0. So we have to add a number to change the bit
