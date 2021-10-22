@@ -16,6 +16,9 @@ After changing the number we have to start checking again from right to left
 Video Link: https://youtu.be/SuPZa-Lmatk
 
 
+Time Complexity: O(log10(N)) (or number of digits) for each test case
+Space Complexity: O(1) for each test case
+
 Solution
 
 #include <bits/stdc++.h>
