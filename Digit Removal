@@ -15,6 +15,7 @@ After changing the number we have to start checking again from right to left
 
 Video Link: https://youtu.be/SuPZa-Lmatk
 
+
 Solution
 
 #include <bits/stdc++.h>
