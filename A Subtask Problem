@@ -12,6 +12,9 @@ You are given a binary array A1,A2,…,AN of length N, where Ai=1 denotes Chef's
 integers M, K. Can you find how many points does Chef get?
 
 
+Time Complexity: O(N) for each test case
+Space Complexity: O(1) for each test case
+
 Solution
 
 APPROACH 1
