@@ -8,6 +8,9 @@ Every person has the capacity of carrying up atmost Y kg of gold. Will Chef and 
 can go to the mine exactly once.
 
 
+Time Complexity: O(1) for each test case
+Space Complexity: O(1) for each test case
+
 Solution
 
 #include <bits/stdc++.h>
