@@ -10,6 +10,10 @@ The MEX of [3,1,0,1] is 2, because 0 and 1 belong to the array, but 2 does not.
 The MEX of [0,3,1,2] is 4 because 0,1,2 and 3 belong to the array, but 4 does not.
 Find the maximum possible MEX of an array of non-negative integers such that the bitwise OR of the elements in the array does not exceed X.
 
+
+Time Complexity: O(1) for each test case
+Space Complexity: O(1) for each test case
+
 Solution
 
 #include <bits/stdc++.h>
