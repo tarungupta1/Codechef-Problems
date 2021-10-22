@@ -7,6 +7,9 @@ Chef has 3 boxes of sizes A, B, and C respectively. He puts the boxes in bags of
 in a bag. A bag can contain more than one box if the sum of sizes of boxes in the bag does not exceed the size of the bag.
 
 
+Time Complexity: O(1) for each test case
+Space Complexity: O(1) for each test case
+
 Solution
 
 #include <bits/stdc++.h>
