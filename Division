@@ -11,6 +11,9 @@ Editorial Link: https://discuss.codechef.com/t/diveo-editorial/95264
 Video Link: https://youtu.be/2m6PHHda7S4
 
 
+Time Complexity: O(root(N)) for each test case
+Space Complexity: O(1) for each test case
+
 Solution
 
 #include <bits/stdc++.h>
