@@ -6,8 +6,12 @@ Question
 You are given an integer N. Consider the sequence containing the integers 1,2,…,N in increasing order (each exactly once). Find the length of the longest subarray in this 
 sequence such that the bitwise AND of all elements in the subarray is positive.
 
-Explanation
-Link: https://youtu.be/slbn0OUnJhk
+
+Video Link: https://youtu.be/slbn0OUnJhk
+
+
+Time Complexity: O(1) for each test case
+Space Complexity: O(1) for each test case
 
 Solution
 
