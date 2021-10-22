@@ -9,6 +9,8 @@ A mixture is called :
 2) A solid if B=0, or
 3) A liquid if A=0.
 
+Time Complexity: O(1) for each test case
+Space Complexity: O(1) for each test case
 
 Solution
 
