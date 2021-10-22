@@ -9,6 +9,9 @@ Editorial Link: https://discuss.codechef.com/t/npairs-editorial/95272
 
 Solution
 
+Time Complexity: O(3*N) = O(N) for each test case
+Space Complexity: O(2*N) = O(N) for each test case
+
 APPROACH 1
 import java.util.*;
 import java.lang.*;
@@ -67,6 +70,9 @@ class Codechef {
 }
  
 
+
+Time Complexity: O(N) for each test case
+Space Complexity: O(1) for each test case
 
 APPROACH 2
 
