@@ -12,7 +12,6 @@ Editorial Link: https://discuss.codechef.com/t/intconca-editorial/95265
 Video Link: https://youtu.be/nktqs_-ykJ0
 
 
-
 Time Complexity: O(N.log(N)) for each test case
 Space Complexity: O(N) for each test case
 
