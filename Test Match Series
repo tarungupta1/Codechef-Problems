@@ -9,6 +9,9 @@ in a draw.
 A team is said to have won the series if it wins strictly more test matches than the other team.
 
 
+Time Complexity: O(1) for each test case
+Space Complexity: O(1) for each test case
+
 Solution
 
 import java.io.*;
