@@ -1,0 +1,31 @@
+Problem Name: Lucky Number
+Problem Tag: LUCKYNUM
+Link: https://www.codechef.com/problems/LUCKYNUM
+
+Question
+Chef buys a lottery ticket that has a 3 digit code associated with it. He thinks that digit 7 is his lucky digit and brings him good luck. Chef will win some amount in 
+the lottery if at least one of the digits of the lottery ticket is 7.
+Given three digits A, B, and C of the lottery ticket, tell whether Chef wins something or not?
+
+
+Solution
+
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+       
+int main(void){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);   cout.tie(0);
+    int t;  cin>>t;
+    while(t--){
+        int a, b, c;    cin>>a>>b>>c;
+        
+        if(a == 7  ||  b == 7  ||  c == 7){
+            cout<<"YES\n";
+        }
+        else{
+            cout<<"NO\n";
+        }
+    }
+}
