@@ -10,6 +10,10 @@ output any one.
 Editorial Link: https://discuss.codechef.com/t/minsz-editorial/95266
 Video Link: https://youtu.be/mjTvSPxN2Vo
 
+
+Time Complexity: O(60) = O(1) for each test case
+Space Complexity: O(60) = O(1) for each test case
+
 Solution
 
 APPROACH 1
