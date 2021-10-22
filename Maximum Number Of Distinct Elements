@@ -1,0 +1,58 @@
+Problem Name: Maximum Number Of Distinct Elements 
+Problem Tag: MAXDISTKT
+Link: https://www.codechef.com/problems/MAXDISTKT
+
+Question
+Given an array B of length N, find an array A of length N where 0≤Ai≤109 such that array C where Ci=AimodBi, ∀i∈{1,2,...,N} has maximum number of distinct integers.
+In case of multiple answers, print any.
+
+
+Editorial Link: https://discuss.codechef.com/t/maxdistkt-editorial/95540
+Video Link: https://youtu.be/ihlTSvrotno
+
+
+Time Complexity: O(N.log(N) + N) = O(N.log(N))
+Space Complexity: O(N)
+
+Solution
+
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+       
+int main(void){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);   cout.tie(0);
+    int t;  cin>>t;
+    while(t--){
+        int n;   cin>>n;
+        
+        vector<pair<int,int>> v;
+        for(int i=0; i<n; i++){
+            int num;    cin>>num;
+            v.push_back({num, i});
+        }
+        
+        // sorting, so that next number can have more range of remainders thus greedily solving
+        sort(v.begin(), v.end());
+        
+        vector<int> ans(n);
+        int rem = 0;
+        for(auto [num, i] : v){   // object destructuring, here i = index of the actual vector
+            
+            if(rem < num){
+                ans[i] = rem;   // will give distinct remainder
+                rem++;          // for next number adding one  
+            }
+            else{
+                ans[i] = 0;     // we can add any value here as it won't give distinct remainder
+            }
+        }
+        
+        for(int i=0; i<n; i++){
+            cout<<ans[i]<<" ";
+        }
+        
+        cout<<"\n";
+    }
+}
