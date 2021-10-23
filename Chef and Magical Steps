@@ -1,0 +1,78 @@
+Problem Name: Chef and Magical Steps 
+Problem Tag: CHEFMGX
+Link: https://www.codechef.com/problems/CHEFMGX
+
+Question
+Chef has a new customer and he wants to prepare his order as soon as possible. While preparing, he sees that the mint sauce is finished. He has to run upstairs to get it 
+from other kitchen. Chef is currently on the Xth stair. He has to climb all the way up to the Yth stair in minimum number of steps. In one step, Chef can do one of the 
+following things:
+  1. Climb a single stair. ( i.e go from the Xth stair to the (X+1)th stair. )
+  2. Climb two stairs only if the final stair falls at a prime number position. ( i.e. go from the Xth stair to the (X+2)th stair, only if (X+2) is a prime number)
+Help Chef reach the Yth stair from the Xth stair in minimum number of steps.
+
+
+Precomputation Time Complexity: O(N.log(log(N))), where N = 10^7
+Test Case Time Complexity: O(1) for each test case
+
+Precomputation Space Complexity: O(N), where N = 10^7
+Test Case Space Complexity: O(1) for each test case
+               
+               
+Solution
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+#define ll long long
+
+const int MAX_SIZE = 1e7;
+bool primes[MAX_SIZE + 1];
+int total_primes_till[MAX_SIZE + 1];
+
+void Sieve_of_Eratosthenes() {
+
+    int n = MAX_SIZE;
+
+    for (int i = 0; i < n; i++) {
+        primes[i] = true;
+    }
+
+    primes[0] = primes[1] = false;
+    total_primes_till[0] = 0;
+
+
+    // applying Sieve_of_Eratosthenes
+    for (int i = 2; i * i <= n; i++) {
+
+        if (primes[i] == false) {
+            continue;
+        }
+
+        for (int j = i * i; j <= n; j += i) {
+            primes[j] = false;
+        }
+    }
+
+
+    // counting the total_primes_till the ith number
+    for (int i = 1; i <= n; i++) {
+        total_primes_till[i] = total_primes_till[i - 1] + (primes[i] == true ? 1 : 0);
+    }
+}
+
+int main() {
+    // your code goes here
+    ios::sync_with_stdio(false);
+    cin.tie(0);    cout.tie(0);
+
+    Sieve_of_Eratosthenes();
+    
+    int t;    cin >> t;
+    while (t--> 0) {
+        ll x, y;        cin >> x >> y;
+
+        ll min_steps = (y - x) - (total_primes_till[y] - total_primes_till[x + 1]);
+        cout << min_steps << '\n';
+    }
+    return 0;
+}
