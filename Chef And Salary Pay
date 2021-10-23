@@ -14,10 +14,11 @@ Time Complexity: O(N) for each test case
 Space Complexity: O(1) for each test case
 
 Solution
+
+APPROACH 1
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
-
 #define ll long long
 
 int main() {
@@ -46,6 +47,47 @@ int main() {
 	            
 	            i = j;
 	        }
+	    }
+	    
+	    ll ans = (total_working_days * x) + (longest_working_days * y);
+	    
+	    cout<<ans<<"\n";
+	}
+	return 0;
+}
+
+
+
+APPROACH 2
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+
+int main() {
+	// your code goes here
+	ios::sync_with_stdio(false);
+	cin.tie(0);     cout.tie(0);
+	
+	int t;  cin>>t;
+	while(t-- > 0){
+	    ll x, y;    cin>>x>>y;
+	    cin.ignore();
+	    string str;     getline(cin, str);
+	    
+	    int total_working_days = 0, longest_working_days = 0;
+	    int current = 0;
+	    for(int i=0; i<30; i++){
+	        
+	        if(str[i] == '1'){
+	            current++;
+	            total_working_days++;
+	        }
+	        else{
+	            current = 0;
+	        }
+	        
+	        longest_working_days = max(longest_working_days, current);
 	    }
 	    
 	    ll ans = (total_working_days * x) + (longest_working_days * y);
