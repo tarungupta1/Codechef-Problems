@@ -1,0 +1,41 @@
+Problem Name: Pass or Fail 
+Problem Tag: PASSORFAIL
+Link: https://www.codechef.com/problems/PASSORFAIL
+
+Question
+Chef is struggling to pass a certain college course. The test has a total of N question, each question carries 3 marks for a correct answer and −1 for an incorrect answer. 
+Chef is a risk-averse person so he decided to attempt all the questions. It is known that Chef got X questions correct and the rest of them incorrect. For Chef to pass the 
+course he must score at least P marks. Will Chef be able to pass the exam or not?
+
+
+Time Complexity: O(1) for each test case
+Space Complexity: O(1) for each test case
+
+Solution
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+#define ll long long
+
+int main() {
+	// your code goes here
+	ios::sync_with_stdio(false);
+	cin.tie(0);     cout.tie(0);
+	
+	int t;  cin>>t;
+	while(t-- > 0){
+	    ll n, x, p;     cin>>n>>x>>p;
+	    
+	    int ans = (x * 3) + ((n - x) * -1);
+	    
+	    if(ans < p){
+	        cout<<"FAIL\n";
+	    }
+	    else{
+	        cout<<"PASS\n";
+	    }
+	}
+	return 0;
+}
