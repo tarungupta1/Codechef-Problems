@@ -11,6 +11,10 @@ following things:
 Help Chef reach the Yth stair from the Xth stair in minimum number of steps.
 
 
+Editorial Link: https://discuss.codechef.com/t/chefmgx-editorial/95496
+Video Link: https://www.youtube.com/watch?v=YAdV4yf-4ms
+
+
 Precomputation Time Complexity: O(N.log(log(N))), where N = 10^7
 Test Case Time Complexity: O(1) for each test case
 
