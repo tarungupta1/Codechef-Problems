@@ -17,10 +17,8 @@ Video Link: https://www.youtube.com/watch?v=YAdV4yf-4ms
 
 Precomputation Time Complexity: O(N.log(log(N))), where N = 10^7
 Test Case Time Complexity: O(1) for each test case
-
 Precomputation Space Complexity: O(N), where N = 10^7
-Test Case Space Complexity: O(1) for each test case
-               
+Test Case Space Complexity: O(1) for each test case               
                
 Solution
 #include <iostream>
