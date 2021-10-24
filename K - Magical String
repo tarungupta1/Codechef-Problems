@@ -1,0 +1,132 @@
+Problem Name: K - Magical String 
+Problem Tag: MGSTR121
+Link: https://www.codechef.com/problems/MGSTR121
+
+Question
+You have been given a string S of size N which consists of uppercase characters only. A K-Magical String is a string in which the longest non - decreasing subsequence is 
+of size exactly K.
+You have been given Q queries where each query is in the form L,R, and K. For each query, check whether substring from index L to index R can be converted into a K-Magical 
+String or not by rearranging its characters and print the final rearranged string too.
+If there exist multiple answers, print the lexicographically largest string possible.
+Note:
+  1. Each query will be treated independently i.e. after each query the string will remain the same as it was initially.
+  2. The input files are large. The use of Fast I/O is recommended.
+
+
+
+Editorial Link: https://discuss.codechef.com/t/mgstr121-editorial/95495
+Video Link: https://youtu.be/5hace8uYXPc
+
+
+Time Complexity: O(N) for each test case
+Space Complexity: O(1) for each test case
+
+Solution
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+int main(void){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);     cout.tie(0);
+    int t;  cin>>t;
+    while(t--){
+        int n;   cin>>n;
+        cin.ignore();
+        string str;     getline(cin, str);
+        
+        vector<vector<int>> prefix_freq(n+1, vector<int>(26, 0));
+        
+        // finding all characters frequency in a prefix sum manner
+        for(int i=0; i<n; i++){
+            for(int j=0; j<26; j++){
+                prefix_freq[i+1][j] = prefix_freq[i][j];
+            }
+            prefix_freq[i+1][str[i] - 'A']++;
+        }
+        
+        // for each query
+        int q;  cin>>q;
+        for(int query=0; query<q; query++){
+            int l, r, k;    cin>>l>>r>>k;
+            
+            // k is greater than the total number of character in the range [l, r]
+            if((r - l + 1) < k){
+                cout<<"No\n";
+                continue;
+            }
+            
+            // finding the characters in the range [l, r]
+            int* freq = new int[26];
+            for(int i=0; i<26; i++){
+                freq[i] = prefix_freq[r][i] - prefix_freq[l-1][i];
+            }
+            
+            // finding max frequency of the character
+            int max_freq = 0;
+            for(int i=0; i<26; i++){
+                max_freq = max(max_freq, freq[i]);
+            }
+            
+            // NOTE: THIS PART IS NOT COMPLETELY CORRECT
+            // if max frequency is greater than longest non decreasing substring
+            if(max_freq > k){
+                cout<<"No\n";
+                continue;
+            }
+            
+            cout<<"Yes\n";
+            // if max frequency is equal to longest non decreasing substring, this means that particular letter will fulfill the condition. Therefore, print each letter 
+            // in reverse manner, as it will give lexigraphically largest string
+            if(max_freq == k){
+                // printing from back
+                for(int i=25; i>=0; i--){
+                    int val = freq[i];
+                    while(val > 0){
+                        cout<<((char)('A' + i));
+                        val--;
+                    }
+                }
+                cout<<"\n";
+                continue;
+            }
+            
+            
+            // when max frequency is less than longest non decreasing substring, this means we will need others letters to fulfill the condition. Therefore, printing some 
+            // part in reverse order and remaining 'k' length in increasing order. This will give lexigraphically largest string
+            if(max_freq < k){
+                // printing some part in reverse manner
+                int reverse_count = 0;
+                int total_reverse_count = r - l + 1 - k;
+                for(int i=25; i>=0; i--){
+                     int val = freq[i];
+                    while(val > 0  &&  reverse_count < total_reverse_count){
+                        cout<<((char)('A' + i));
+                        val--;
+                        reverse_count++;
+                    }
+                    
+                    if(reverse_count == total_reverse_count){
+                        break;
+                    }
+                }
+                
+                // printing some part in forward manner
+                int forward_count = 0;
+                for(int i=0; i<=25; i++){
+                    int val = freq[i];
+                    while(val > 0  &&  forward_count < k){
+                        cout<<((char)('A' + i));
+                        val--;
+                        forward_count++;
+                    }
+                    
+                    if(forward_count == k){
+                        break;
+                    }
+                }
+                cout<<"\n";
+            }
+        }
+    }
+}
