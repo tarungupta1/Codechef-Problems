@@ -18,8 +18,8 @@ Editorial Link: https://discuss.codechef.com/t/mgstr121-editorial/95495
 Video Link: https://youtu.be/5hace8uYXPc
 
 
-Time Complexity: O(N) for each test case
-Space Complexity: O(1) for each test case
+Time Complexity: O(26.S + X), where S is the total number of queries overall all testcases and X is the the sum of (R−L+1) over all Q queries over all test cases.
+Space Complexity: O(26.S), where S is the total number of queries overall all testcases over all Q queries over all test cases.
 
 Solution
 #include <bits/stdc++.h>
