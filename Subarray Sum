@@ -1,0 +1,117 @@
+Problem Name: Subarray Sum
+Problem Tag: SUMSUB
+Link: https://www.codechef.com/problems/SUMSUB
+
+Question
+Chef has a sequence of N integers A1,A2,…,AN. He defines a function f(i,j) as follows:  
+      f(i,j)=Ai + max(Ai,Ai+1) + max(Ai,Ai+1,Ai+2) + ⋯ + max(Ai,Ai+1,…,Aj)    
+Chef tries to find the sum of f(i,j) over all (i,j) such that 1≤i≤j≤N (i.e∑i=1n∑j=inf(i,j)), but fails. Can you help him find the sum? Since the sum can be very large, 
+find it modulo (109+7).
+Note: Since the size of the input and output is large, please use fast input-output methods.
+
+
+Editorial Link: https://discuss.codechef.com/t/sumsub-editorial/95492
+Video Link: https://www.youtube.com/watch?v=lKTEdaB2WBk
+
+
+Time Complexity: O(N) for each test case
+Space Complexity: O(N) for each test case
+
+Solution
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define MOD 1000000007
+
+// using MOD Operations for addition, subtraction, multiplication, division and exponential
+// for addition
+ll addMod(ll a, ll b){
+    ll ans = a + b;
+    return (ans >= MOD ? ans - MOD : ans);
+}
+
+// for subtraction
+ll subMod(ll a, ll b){
+    ll ans = a - b;
+    return (ans < 0 ? ans + MOD : ans);
+}
+
+// for multiplication
+ll mulMod(ll a, ll b){
+    ll ans = a * b;
+    return (ans >= MOD ? ans % MOD : ans);
+}
+
+// for exponential
+ll modPow(ll a, ll b){        
+    ll ans = 1;
+    a %= MOD;
+    
+    while(b > 0){
+        if((b & 1) != 0){
+            ans = mulMod(ans, a);
+        }
+        
+        b >>= 1;
+        a = mulMod(a, a);
+    }
+    
+    return ans;
+}
+
+// for division
+ll invMod(ll a){
+    return modPow(a, MOD - 2);
+}
+
+
+int main(void){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);     cout.tie(0);
+    ll t;  cin>>t;
+    while(t--){
+        ll n;   cin>>n;
+        ll *arr = new ll[n+1];
+        
+        for(int i=1; i<=n; i++){
+            cin>>arr[i];
+        }
+        
+        ll ans = 0;     // total sum
+        std::vector<ll> dp(n+3);    // used for storing f(x) for a particular 'i'
+        std::stack<int> st;         // used for Next Greater Element
+        for(ll i=n; i>=1; i--){
+            
+            // removing all the elements which are smaller than the current element
+            while(st.empty() == false  &&  arr[i] > arr[st.top()]){
+                st.pop();
+            }
+            
+            // if the stack is empty, this means the current element do not have Next Greater Element
+            int ind = n + 1;
+            
+            // if stack is not empty, this means the topmost element in the stack is the Next Greater Element
+            if(st.empty() == false){
+                ind = st.top();
+            }
+            
+            // adding the current element in the stack            
+            st.push(i);
+            
+            // solving the equations, check the video for the equations
+            ll term1 = mulMod(ind - i, n +  1);
+            ll term2 = mulMod(mulMod(ind, ind - 1), invMod(2));
+            ll term3 = mulMod(mulMod(i, i - 1), invMod(2));
+            
+            ll all_terms = subMod(term1, subMod(term2, term3));
+            ll partial = mulMod(arr[i], all_terms);
+            
+            dp[i] = addMod(partial, dp[ind]);
+            
+            // adding to the total sum
+            ans = addMod(ans, dp[i]);
+        }
+        
+        cout<<ans<<"\n";
+    }
+}
