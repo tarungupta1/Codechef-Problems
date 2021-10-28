@@ -1,0 +1,43 @@
+Problem Name: Odd Sum
+Problem Tag: ODDSUM
+Link: https://www.codechef.com/problems/ODDSUM
+
+Question
+Given an integer N, consider all arrays A of size N such that
+  1. All the elements are non-negative and distinct.
+  2. All prefix sums are odd. Formally, for all i such that 1≤i≤N, ∑i,j=1 (Ai) is odd.
+Among all possible arrays A, output the smallest possible sum of the elements of the array.
+Note: Since the Input/Output may be large, it is preferred to use fast I/O.
+
+
+Editorial Link: https://discuss.codechef.com/t/oddsum-editorial/95742
+Video Link: https://www.youtube.com/watch?v=FpiFK3Zs5Bk
+
+
+Time Complexity: O(1) for each test case
+Space Complexity: O(1) for each test case
+
+
+Solution
+
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+int main(void){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);     cout.tie(0);
+    int t;  cin>>t;
+    while(t--){
+        ll n;   cin>>n;
+        if(n == 1){
+	        cout<<"1\n";
+	    }
+	    else{
+	        n--;
+	        ll ans = n * (n-1);
+	        ans++;
+	        cout<<ans<<"\n";
+	    }
+    }
+}
