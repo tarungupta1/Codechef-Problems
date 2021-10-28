@@ -1,0 +1,163 @@
+Problem Name: 01 Subsequence
+Problem Tag: ZEROONE
+Link: https://www.codechef.com/problems/ZEROONE
+
+Question
+You are handed a binary string S, but not in any ordinary form. Instead of being directly given the value of S, you are given an array C of size N representing the 
+01-compression representation of S. This means S first contains C1 0 characters, then C2 1 characters, then C3 0 characters, and so on. For example, the array 
+C=[2,3,4,3] corresponds with the binary string 001110000111.
+You are allowed to modify S by swapping elements of C. More specifically, you are allowed to swap Ci and Cj as long as Ci and Cj both encodes blocks of the same 
+character. For example, from C=[2,3,4,3], you can swap C1 and C3 because both of them encode blocks of 0's, turning C to [4,3,2,3] and S to 000011100111. However, 
+you cannot swap C1 and C2 because C1 encodes a block of 0's, while C2 encodes a block of 1s.
+Perform the swapping operation in any way as many times as you want (including zero times) so that the final string S has as many 01 subsequences as possible. As a 
+reminder, a subsequence of a string is a sequence that can be derived by deleting zero or more characters without changing the order of the remaining characters.
+You need to find any optimal final array C, for which the number of 01 subsequence will be the largest possible.
+
+
+Editorial Link: https://discuss.codechef.com/t/zeroone-editorial/95747
+Video Link: https://www.youtube.com/watch?v=_HYXvyWb-V8
+
+
+Time Complexity: O(N.log(N)) for each test case
+Space Complexity: O(N) for each test case
+
+
+Solution
+
+APPROACH 1
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+int main(void){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);     cout.tie(0);
+    int t;  cin>>t;
+    while(t--){
+        int n;  cin>>n;
+	    int *arr = new int[n];
+	    for(int i=0; i<n; i++){
+	        cin>>arr[i];
+	    }
+	    
+	    vector<int> zero;
+	    vector<int> one;
+	    
+	    for(int i=0; i<n; i++){
+	        if(i % 2 == 0){
+	            zero.push_back(arr[i]);
+	        }
+	        else{
+	            one.push_back(arr[i]);
+	        }
+	    }
+	    
+	    sort(zero.begin(), zero.end(), greater<int>());
+	    sort(one.begin(), one.end());
+	    
+	    
+	    // printing the array
+	    int j = 0, k=0;
+	    for(int i=0; i<n; i++){
+	        if(i % 2 == 0){
+	            cout<<zero[j]<<" ";
+	            j++;
+	        }
+	        else{
+	            cout<<one[k]<<" ";
+	            k++;
+	        }
+	    }
+	    cout<<"\n";
+	    
+	    
+	    // stores number of zeroes before a particular one
+	    ll prefix_zero = zero[0];
+
+        // finding the number of ways
+        ll ans = 0;
+	    for(int i=0; i<min(zero.size() , one.size()); i++){
+	        // multiplying total number of zeroes before a particular one with total number of ones in that sequence
+	        ll val = (ll)(prefix_zero) * (ll)(one[i]);
+	        ans += val;
+	        
+	        // counting number of zeroes till a particular one
+	        if(i + 1 < zero.size()){
+	            prefix_zero += zero[i+1];
+	        }
+	    }
+	    
+	    cout<<ans<<"\n";
+    }
+}
+
+
+
+APPROACH 2
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+int main(void){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);     cout.tie(0);
+    int t;  cin>>t;
+    while(t--){
+        int n;  cin>>n;
+	    int *arr = new int[n];
+	    for(int i=0; i<n; i++){
+	        cin>>arr[i];
+	    }
+	    
+	    vector<int> zero;
+	    vector<int> one;
+	    
+	    for(int i=0; i<n; i++){
+	        if(i % 2 == 0){
+	            zero.push_back(arr[i]);
+	        }
+	        else{
+	            one.push_back(arr[i]);
+	        }
+	    }
+	    
+	    sort(zero.begin(), zero.end(), greater<int>());
+	    sort(one.begin(), one.end());
+	    
+	    
+	    // printing the array
+	    int j = 0, k=0;
+	    for(int i=0; i<n; i++){
+	        if(i % 2 == 0){
+	            cout<<zero[j]<<" ";
+	            j++;
+	        }
+	        else{
+	            cout<<one[k]<<" ";
+	            k++;
+	        }
+	    }
+	    cout<<"\n";
+	    
+	    
+	    // stores number of ones after a particular zero
+	    ll suffix_one = 0;
+	    for(int i=0; i<one.size(); i++){
+	        suffix_one += one[i];
+	    }
+
+        // finding the number of ways
+        ll ans = 0;
+	    for(int i=0; i<min(zero.size() , one.size()); i++){
+	        // multiplying total number of zeroes with total number of ones appearing after a particular zero
+	        ll val = (ll)(zero[i]) * (ll)(suffix_one);
+	        ans += val;
+	        
+	        // counting number of ones after a particular zero	        
+	    	suffix_one -= one[i];
+	        
+	    }
+	    
+	    cout<<ans<<"\n";
+    }
+}
