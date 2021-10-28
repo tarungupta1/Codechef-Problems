@@ -1,0 +1,32 @@
+Problem Name: Chef and Pairing Slippers
+Problem Tag: CHEFSLP
+Link: https://www.codechef.com/problems/CHEFSLP
+
+Question
+Chef has N slippers, L of which are left slippers and the rest are right slippers. Slippers must always be sold in pairs, where each pair contains one left and one right 
+slipper. If each pair of slippers cost X rupees, what is the maximum amount of rupees that Chef can get for these slippers?
+
+
+Time Complexity: O(1) for each test case
+Space Complexity: O(1) for each test case
+
+
+Solution
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+int main(void){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    int t;  cin>>t;
+    while(t--){
+        ll n, l, c;   cin>>n>>l>>c;
+        ll r = n - l;
+        
+        int pairs = min(l, r);
+        
+        ll ans = pairs * c;
+        cout<<ans<<"\n";
+    }
+}
