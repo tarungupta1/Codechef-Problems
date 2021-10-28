@@ -1,0 +1,95 @@
+Problem Name: Average Flex
+Problem Tag: AVGFLEX
+Link: https://www.codechef.com/problems/AVGFLEX
+
+Question
+There are N students in a class, where the i-th student has a score of Ai. The i-th student will boast if and only if the number of students scoring less than or equal Ai 
+is greater than the number of students scoring greater than Ai.
+Find the number of students who will boast.
+
+
+
+Solution
+
+Time Complexity: O(N^2) for each test case
+Space Complexity: O(1) for each test case
+
+APPROACH 1
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+    
+int main(void){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    int t;  cin>>t;
+    while(t--){
+        ll n;   cin>>n;
+        int* arr = new int[n];
+        for(int i=0; i<n; i++){
+            cin>>arr[i];
+        }
+                
+        int count = 0;
+        for(int i=0; i<n; i++){
+            int count1 = 0, count2 = 0;
+            for(int j=0; j<n; j++){
+                if(arr[j] <= arr[i]){
+                    count1++;
+                }
+                else{
+                    count2++;
+                }
+            }
+            
+            if(count2 < count1){
+                count++;
+            }
+        }
+        
+        cout<<count<<"\n";
+    }
+}
+
+
+
+Time Complexity: O(N + max(A)) for each test case
+Space Complexity: O(max(A)) for each test case
+
+APPROACH 2
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+int main(void){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    int t;  cin>>t;
+    while(t--){
+        ll n;   cin>>n;
+        int* arr = new int[n];
+        for(int i=0; i<n; i++){
+            cin>>arr[i];
+        }
+        
+        // Using frequency array, as the number's range is low [0, 100]
+        vector<int> freq(101);
+        for(int i=0; i<n; i++){
+            freq[arr[i]]++;
+        }
+        
+        int count = 0, prefix_sum = 0;
+        for(int i=0; i<101; i++){
+            
+            prefix_sum += freq[i];
+            
+            if(freq[i] != 0){
+                if((n - prefix_sum) < prefix_sum){
+                    count += freq[i];
+                }
+            }
+        }
+        
+        cout<<count<<"\n";
+    }
+}
