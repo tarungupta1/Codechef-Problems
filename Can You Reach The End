@@ -1,0 +1,236 @@
+Problem Name: Can You Reach The End
+Problem Tag: RECHEND
+Link: https://www.codechef.com/problems/RECHEND
+
+Question
+You are given a positive integer N. Consider a square grid of size N×N, with rows numbered 1 to N from top to bottom and columns numbered 1 to N from left to right. 
+Initially you are at (1,1) and you have to reach (N,N). From a cell you can either move one cell to the right or one cell down (if possible). Formally, if you are 
+at (i,j), then you can either move to (i+1,j) if i<N, or to (i,j+1) if j<N.
+There are exactly N blocks in the grid, such that each row contains exactly one block and each column contains exactly one block. You can't move to a cell which contains 
+a block. It is guaranteed that blocks will not placed in (1,1) and (N,N).
+You have to find out whether you can reach (N,N)
+
+
+Editorial Link: https://discuss.codechef.com/t/rechend-editorial/95744
+Video Link: https://www.youtube.com/watch?v=efV982GTC9o
+
+
+Solution
+
+
+Time Complexity: O(N.log(N)) for each test case
+Space Complexity: O(N) for each test case
+
+APPROACH 1
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+    
+struct Cell {
+    int row, col;
+};
+
+int main(void){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);     cout.tie(0);
+    int t;  cin>>t;
+    while(t--){
+        int n;  cin>>n;
+        
+        vector<Cell> v(n);
+	    for(int i=0; i<n; i++){
+	        int r, c;   cin>>r>>c;
+	        
+	        v[i].row = r;
+	        v[i].col = c;
+	    }
+	    
+	    sort(v.begin(), v.end(), [](Cell a, Cell b) {
+	       return a.row < b.row; 
+	    });
+	    // after sorting, the vectors will be arranged according order of the increasing row number
+	    // Also ATQ, every row will have a block, so the vector will have all rows in increasing order therefore it will help in finding the diagonal easily as now we 
+	    // need to check only one corner
+	    
+	    
+	    // now we have to check if there is a complete diagonal present or not from 
+	    // (top row to first column) or (last column to lowest row)
+	    
+	    // checking for (top row to first column) or (top side to left side)
+	    int ToptoLeft = -1;     // stores the index till where the diagonal from top row is complete
+	    for(int i=1; i<n; i++){
+	        if(v[i-1].col == (v[i].col + 1)){
+	            ToptoLeft = i;
+	        }
+	        else{
+	            break;
+	        }
+	    }
+	    
+	    // checking for (last column to lowest row) or (down side to right side)
+	    int DowntoRight = -1;   // stores the index till where the diagonal from lowest row is complete
+	    for(int i=n-2; i>=0; i--){
+	        if(v[i+1].col == (v[i].col - 1)){
+	            DowntoRight = i;
+	        }
+	        else{
+	            break;
+	        }
+	    }
+	    
+	    
+	    /* if the diagonal is complete, then two cases can be possible which are 
+	    1. ToptoLeft is storing an index which has it's col equals to 1, that means all the blocks from that row to top row will make a complete diagonal to stop us 
+	    from reaching down
+	    
+	    2. DowntoRight is storing an index which has it's col equals to n, that means all the blocks from that row to lowest row will make a complete diagonal to stop 
+	    us from reaching down
+	    */
+	    if(v[ToptoLeft].col == 1  ||  v[DowntoRight].col == n){
+	        cout<<"No\n";
+	    }
+	    else{
+	        cout<<"Yes\n";
+	    }	    
+    }
+}
+
+
+
+Time Complexity: O(N) for each test case
+Space Complexity: O(N) for each test case
+
+APPROACH 2
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+int main(void){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);     cout.tie(0);
+    int t;  cin>>t;
+    while(t--){
+        int n;  cin>>n;
+        
+        unordered_map<int, int> map;
+        for(int i=0; i<n; i++){
+            int r, c;   cin>>r>>c;
+            int sum = r + c;
+            
+            if(map.find(sum) == map.end()){
+                map.insert({sum, 1});
+            }
+            else{
+                map[sum]++;
+            }
+        }
+                
+// as for a particular diagonal sum of row and column index is contant, therefore checking diagonal and finding if the number of elements present in the diagonal is equal 
+// to frequency or not. if equal this means we can block
+        
+        // for diagonals above the biggest diagonal
+        bool tag = false;
+        for(int i=3; i<=n; i++){
+            if(map.find(i) != map.end()){
+                if(map[i] == i-1){
+                    tag = true;
+                    break;
+                }
+            }
+        }
+        
+        // we find a diagonal having all elements as block
+        if(tag == true){
+            cout<<"No\n";
+            continue;
+        }
+        
+        
+        // for diagonals below the biggest diagonal (including the biggest diagonal)
+        int count = n;
+        for(int i=n+1; i<(2 * n); i++, count--){
+            if(map.find(i) != map.end()){
+                if(map[i] == count){
+                    tag = true;
+                    break;
+                }
+            }
+        }
+        
+        // we find a diagonal having all elements as block
+        if(tag == true){
+            cout<<"No\n";
+            continue;
+        }
+        else{
+            cout<<"Yes\n";
+        }
+    }
+}
+
+
+
+Time Complexity: O(N) for each test case
+Space Complexity: O(N) for each test case
+
+APPROACH 3
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+int main(void){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);     cout.tie(0);
+    int t;  cin>>t;
+    while(t--){
+        int n;  cin>>n;
+        
+        unordered_map<int, int> map;
+        for(int i=0; i<n; i++){
+            int r, c;   cin>>r>>c;
+            int sum = r + c;
+            
+            if(map.find(sum) == map.end()){
+                map.insert({sum, 1});
+            }
+            else{
+                map[sum]++;
+            }
+        }
+        
+// as for a particular diagonal sum of row and column index is contant, therefore checking diagonal and finding if the number of elements present in the diagonal is equal 
+// to frequency or not. if equal this means we can block
+        
+        // checking for all diagonals
+        bool tag = false;
+        for(auto i : map){
+            int sum = i.first;
+            
+            // for diagonals above biggest diagonal
+            if(sum <= n){
+                int freq = sum - 1;
+                if(i.second == freq){
+                    tag = true;
+                    break;
+                }
+            }    
+            // for diagonals below the biggest diagonal (including the biggest diagonal)
+            else{
+                int freq = n - (sum - n - 1);
+                if(i.second == freq){
+                    tag = true;
+                    break;
+                }
+            }
+        }
+        
+        // we find a diagonal having all elements as block
+        if(tag == true){
+            cout<<"No\n";
+            continue;
+        }
+        else{
+            cout<<"Yes\n";
+        }
+    }
+}
