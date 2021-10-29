@@ -1,0 +1,107 @@
+Problem Name: Find the Modulus
+Problem Tag: FINDMOD
+Link: https://www.codechef.com/problems/FINDMOD
+
+Question
+The jury has a secret number N, where 1≤N≤1018. You want to know this number, and you are allowed to ask the jury some queries. In each query, you give the jury a number X 
+where 0≤X≤2⋅1018, and the jury tells you X mod N.
+Please find N using at most two queries per test case.
+
+
+Editorial Link: https://discuss.codechef.com/t/findmod-editorial/95741
+Video Link: https://www.youtube.com/watch?v=Gu--bpznTRI
+
+
+Time Complexity: O(1) for each test case
+Space Complexity: O(1) for each test case
+
+Solution
+
+APPROACH 1
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+int main(void){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);     cout.tie(0);
+    int t;  cin>>t;
+    while(t--){
+        // using "endl" to flush the output
+        ll x1 = 1e18;            
+        cout<<"? "<<x1<<endl;        
+        ll y1;  cin>>y1;
+
+        ll x2 = x1 - y1 - 1;
+        cout<<"? "<<x2<<endl;        
+        ll y2;  cin>>y2;
+        
+        ll n = y2 + 1;
+        cout<<"! "<<n<<endl;
+    }
+}
+
+
+
+APPROACH 2
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+    
+int main(void){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);     cout.tie(0);
+    int t;  cin>>t;
+    while(t--){
+        // using "endl" to flush the output
+        ll x1 = (1e18);     x1 += 3;
+        cout<<"? "<<x1<<endl;
+        ll y1;  cin>>y1;
+        
+        if(y1 == 0){
+            cout<<"! 1"<<endl;
+            continue;
+        }
+        
+        ll x2 = x1 - (2 * y1);
+        cout<<"? "<<x2<<endl;
+        ll y2;  cin>>y2;
+        
+        ll n = y1 + y2;
+        cout<<"! "<<n<<endl;
+    }
+}
+
+
+
+APPROACH 3
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+ll gcd(ll a, ll b){
+    if(b == 0ll){
+        return a;
+    }
+    
+    return gcd(b, a%b);
+}
+
+int main(void){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);     cout.tie(0);
+    int t;  cin>>t;
+    while(t--){
+        // using "endl" to flush the output
+        ll x1 = (1e18);
+        cout<<"? "<<x1<<endl;
+        ll y1;  cin>>y1;
+        
+        ll x2 = x1 - y1 - 1;
+        cout<<"? "<<x2<<endl;
+        ll y2;  cin>>y2;
+        
+        ll n = gcd(x1 - y1, x2 - y2);
+        cout<<"! "<<n<<endl;
+    }
+}/
