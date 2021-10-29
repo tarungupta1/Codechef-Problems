@@ -4,7 +4,7 @@ Link: https://www.codechef.com/problems/FINDMOD
 
 Question
 The jury has a secret number N, where 1≤N≤1018. You want to know this number, and you are allowed to ask the jury some queries. In each query, you give the jury a number X 
-where 0≤X≤2⋅1018, and the jury tells you X mod N.
+where 0 ≤ X ≤ 2⋅(10^18), and the jury tells you X mod N.
 Please find N using at most two queries per test case.
 
 
@@ -104,4 +104,4 @@ int main(void){
         ll n = gcd(x1 - y1, x2 - y2);
         cout<<"! "<<n<<endl;
     }
-}/
+}
