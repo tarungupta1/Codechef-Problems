@@ -1,0 +1,36 @@
+Problem Name: Min Max LCM 
+Problem Tag: MINLCM1
+Link: https://www.codechef.com/problems/MINLCM1
+
+Question
+You are given two positive integers X and K.
+You have to output the minimum and maximum value of LCM(i,j) where X≤i<j≤X⋅K.
+We define LCM(i,j) for two positive integers i and j as the minimum positive integer y such that both i and j divide y without remainder.
+
+
+Editorial Link: https://discuss.codechef.com/t/minlcm1-editorial/95683
+Video Link: https://youtu.be/OX_E3COHw28
+
+
+Time Complexity: O(1) for each test case
+Space Complexity: O(1) for each test case
+
+Solution
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+int main(void){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);     cout.tie(0);
+    int t;  cin>>t;
+    while(t--){
+        ll x, k;    cin>>x>>k;
+        
+        ll right = x * k;
+        ll minimum = x * 2;
+        ll maximum = right * (right-1);
+
+        cout<<minimum<<" "<<maximum<<"\n";
+    }
+}
