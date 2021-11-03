@@ -1,0 +1,81 @@
+Problem Name: Round Robin Ranks
+Problem Tag: RRR
+Link: https://www.codechef.com/problems/RRR
+
+Question
+A round-robin tournament is being held in Chefland among N teams numbered 1,2,...,N. Every team play with all other teams exactly once. All games have only two
+possible results - win or loss. A win yields 2 points to the winning team while a loss yields no points. What is the maximum number of points a team finishing at 
+the Kth position can score?
+Note: If two teams have the same points then the team with the higher team number achieves the better rank.
+
+
+Video Link: https://youtu.be/rbgJm8m3Nrg
+
+
+Time Complexity: O(1) for each test case
+Space Complexity: O(1) for each test case
+
+Solution
+
+APPROACH 1
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+    
+int main(void){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);     cout.tie(0);
+    int t;  cin>>t;
+    while(t--){
+        ll n, k;    cin>>n>>k;
+        	   	    
+	    /*
+        The possible points table is made by assuming that a team positioned at each place/rank has won against all teams below them, so starting from below matches 
+        won will be 0, then 1, 2, 3 ... and so on
+        
+        Now for a rank K, we need to maximize the score without changing the position. So we must be altering the outcomes and we can only change the outcomes of matches 
+        between the teams on or above Kth rank. 
+        
+        So what we do is find the sum of score of teams on or above Kth rank and try to distribute evenly amongst them and we distribute the excess points from top to 
+        bottom so that the positions/ranking isn't altered.
+        */
+
+      ll below_ranks = n - k;
+	    ll a = (n * (n-1))/ 2;       // total wins 
+	    ll b = (below_ranks * (below_ranks-1))/ 2;    // max total wins from (k+1) position to last position
+	    
+	    ll diff = a - b;    // wins which we can distribute among top k teams
+	    
+	    ll max_wins = diff / k;     // max_wins = (total / total teams)
+	    ll max_points = max_wins * 2;    // points = (wins * 2)
+	    
+	    cout<<max_points<<"\n";
+    }
+}
+
+
+
+APPROACH 2
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+    
+int main(void){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);     cout.tie(0);
+    int t;  cin>>t;
+    while(t--){
+        ll n, k;    cin>>n>>k;
+	
+	// Just an observation, check the video
+        ll ans = 0ll;
+	    if(k == 1){
+	        ans = n-1;  // max wins for 1st position
+	    }
+	    else{
+	        ans = (n- 1) - (k / 2);   // max wins for kth position
+	    }
+	    
+	    cout<<ans * 2ll<<"\n";
+    }
+}
