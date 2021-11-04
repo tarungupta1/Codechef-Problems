@@ -16,7 +16,7 @@ Video Link: https://www.youtube.com/watch?v=71fjTY99tV8
 
 
 Time Complexity: O(log(k)) for each test case
-Space Complexity: O(1) for each test case
+Space Complexity: O(log(k)) for each test case
 
 Solution
 #include <bits/stdc++.h>
