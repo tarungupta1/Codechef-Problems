@@ -1,0 +1,136 @@
+Problem Name: Equal Beauty 
+Problem Tag: EQBEAUTY
+Link: https://www.codechef.com/problems/EQBEAUTY
+
+Question
+The beauty of an (non-empty) array of integers is defined as the difference between its largest and smallest element.
+  For example, the beauty of the array [2,3,4,4,6] is 6−2=4.
+An array A is said to be good if it is possible to partition the elements of A into two non-empty arrays B1 and B2 such that B1 and B2 have the same beauty.
+Each element of array A should be in exactly one array: either in B1 or in B2.
+  For example, the array [6,2,4,4,4] is good because its elements can be partitioned into two arrays B1=[6,4,4] and B2=[2,4], where both B1 and B2 have the same 
+beauty (6−4=4−2=2).
+You are given an array A of length N. In one move you can:
+Select an index i (1≤i≤N) and either increase Ai by 1 or decrease Ai by 1.
+Find the minimum number of moves required to make the array A good.
+
+
+Editorial Link: https://discuss.codechef.com/t/eqbeauty-editorial/95677
+Video Link: https://www.youtube.com/watch?v=he4yOsUtJHc
+
+
+Time Complexity: O(N.log(N)) for each test case
+Space Complexity: O(N) for each test case
+
+Solution
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+int main() {   
+    //fast IO
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);    cout.tie(0);
+
+    int t;    cin>>t;
+
+    while (t--){
+        int n;    cin>>n;
+    
+        vector<ll> a(n + 1);    // the array of n integers
+        multiset<ll>s1,s2;      // 2 multisets: the first one gives us the lower bound (>=) and the second gives the number (<=) 
+
+        for (int i = 1;i<=n;i++){
+            cin>>a[i];
+            s1.insert(a[i]);
+            s2.insert(-a[i]);
+        }
+
+        sort(a.begin() + 1,a.end());    //sort the list
+
+        if (n == 2){//B1 = {A[1]}, B2 = {A[2]}
+            cout<<0<<'\n';
+            continue;
+        }
+
+        if (n == 3){//B1 = {A[1]} and B2 = {A[2], A[3]} OR B1 = {A[1], A[2]} and B2 = {A[3]}
+            ll ans = min({a[3] - a[2],a[2] - a[1]});
+            cout<<ans<<'\n';
+            continue;
+        }
+        
+        
+        //Edge Case 1: min(B1) = a[1], max(B1) = a[n]
+        //Now its optimal to make min(B2) = a[2] and max(B2) = a[n - 1]
+        ll ans = (a[n] - a[1]) - (a[n - 1] - a[2]);
+
+
+        //Edge Case 2: min(B1) = a[1], max(B1) = a[1]
+        //Hence B2 contains a[2] to a[n] and we want to make all numbers from a[2] to a[n] equal, so that the max(B2) - min(B2) = 0
+        //So make a[2] to a[n] all equal to their median because the median MINIMISES THE SUM OF ABSOLUTE DIFFERENCES 
+        ll med = a[(n + 1)/2 + 1];      // can be written as "med = a[(n-1)/2 + 2]", here adding 1 at last due to one based indexing
+        ll cost = 0;
+        for (int i = 2;i<=n;i++)
+            cost += abs(a[i] - med);
+        ans = min(ans,cost);
+
+
+        //Edge Case 3: min(B2) = a[n], max(B2) = a[n]
+        //Hence B1 contains a[1] to a[n - 1] and we want all numbers from a[1] to a[n - 1] equal so that the max(B1) - min(B1) = 0
+        //So make a[1] to a[n - 1] all equal to their median because the median MINIMISES THE SUM OF ABSOLUTE DIFFERENCES
+        med = a[(n + 1)/2];     // can be written as "med = a[(n-1)/2 + 1]", here adding 1 at last due to one based indexing
+        cost = 0;
+        for (int i = 1;i<=n - 1;i++)
+            cost += abs(a[i] - med);
+        ans = min(ans,cost);
+
+
+        //Normal Case (Case #4):
+        for (int i = 2;i<=n - 1;i++){
+            
+            //min(B1) = A[1]
+            //min(B2) = A[i]
+            //max(B2) = A[n]
+            //Hence B2 partitions contains [i, n]
+            //B1: [1,i - 1] OR [1, position(x)] where x >= a[i - 1]
+            
+            //erase these 3 numbers from both the multisets to ensure no duplicate entries are there in the partitions
+            s1.erase(s1.find(a[n]));
+            s1.erase(s1.find(a[i]));
+            s1.erase(s1.find(a[1]));
+
+            s2.erase(s2.find(-a[n]));
+            s2.erase(s2.find(-a[i]));
+            s2.erase(s2.find(-a[1]));
+            
+
+            //find x: abs((a[n] - a[i]) - (x - a[1])) is minimised, therefore x should be AS CLOSE TO a[n] - a[i] + a[1] as possible
+            //so find the closest LESSER and the closest GREATER than a[n] - a[i] + a[1]
+            
+            auto it1 = s2.lower_bound(-(a[n] - a[i] + a[1]));//closest LESSER
+            auto it2 = s1.lower_bound(a[n] - a[i] + a[1]);//closest GREATER
+
+            if (it1 != s2.end()){
+                ll lesser = -(*it1);
+                lesser = max(lesser,a[i - 1]);//because x >= a[i - 1]
+                ans = min(ans,abs((a[n] - a[i]) - (lesser - a[1])));
+            }
+
+            if (it2 != s1.end()){
+                ll greater = *it2;
+                greater = max(greater,a[i - 1]);//because x >= a[i - 1]
+                ans = min(ans,abs((a[n] - a[i]) - (greater - a[1])));
+            }
+
+
+            //reinsert these 3 numbers into the 2 multisets
+            s1.insert(a[n]);
+            s1.insert(a[i]);
+            s1.insert(a[1]);
+            
+            s2.insert(-a[n]);
+            s2.insert(-a[i]);
+            s2.insert(-a[1]);
+        }
+        cout<<ans<<'\n';
+    }
+    return 0;
+}
