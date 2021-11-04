@@ -1,0 +1,120 @@
+Problem Name: Yet Another Flipping Problem
+Problem Tag: BINFLIP
+Link: https://www.codechef.com/problems/BINFLIP
+
+Question
+Chef has a binary string S of length N, where the first K characters of S are '1', while the rest are '0'. He wants to make all the characters equal to '0'. You are 
+allowed to perform the following operation on the string S as long as 2i−1≤N:
+In the ith operation, you can select any contiguous range of 2i−1 indices of S and flip their values.
+He can use the above operation any number of times. If there is no sequence of operations that can convert the string to all '0's, print NO.
+Otherwise, print YES in the first line and then describe the operations. Print the starting indices of the contiguous range to be flipped in each operation.
+See Output Format for further details.
+
+
+Editorial Link: https://discuss.codechef.com/t/binflip-editorial/95732
+Video Link: https://www.youtube.com/watch?v=71fjTY99tV8
+
+
+Time Complexity: O(log(k)) for each test case
+Space Complexity: O(1) for each test case
+
+Solution
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+    
+int main(void){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    int t;  cin>>t;
+    while(t--){
+        ll n, k;   cin>>n>>k;
+        
+        // when no digit is '1'
+        if(k == 0){
+            cout<<"YES\n"<<"0\n";
+            continue;
+        }
+        
+        // for even 'k' it won't work as sum of flipping numbers(i.e. 1+2++4+8...) is always odd therefore we can't remove even number of ones
+        if(k % 2 == 0){
+            cout<<"NO\n";
+            continue;
+        }
+        
+        // finding the maximum power and the exponent
+        ll max_pow = 1, size = 1;
+        while(2 * max_pow <= k){
+            max_pow *= 2;
+            size++;
+        }
+        
+        // storing the powers of 2 in the vectors
+        // addition signifies that we will change the '0' bit to '1' bit and subtraction signifies that we will change the '1' bit to '0' bit
+        vector<ll> addition, subtraction;
+        
+        // finding which number goes to which part
+        ll current_sum = 0, total_sum = k;
+        ll temp_max_pow = max_pow;
+        while(temp_max_pow > 0){
+            if(current_sum <= total_sum){
+                addition.push_back(temp_max_pow);
+                current_sum += temp_max_pow;
+            }
+            else{
+                subtraction.push_back(temp_max_pow);
+                current_sum -= temp_max_pow;
+            }
+            
+            temp_max_pow /= 2;
+        }
+        
+        
+        ll *ans = new ll[size];     
+        // each index in the ans array signifies power of 2 and stores the index of string S, from which we need to change the bits 
+        
+        
+        // will be solving in reverse manner i.e. at starting we will be having k length string of '0' bits
+        
+        // at starting we will change the first max_pow bits from '0' to '1' from left to right
+        ans[size-1] = 1;
+        
+        // then we will change '1' to '0' from right of the string
+        ll index = max_pow;     // last position of '1' bit from left
+        // for every number which is used to change '1' to '0'
+        for(int i=subtraction.size() - 1; i>=0; i--){
+            ll num = subtraction[i];
+            ll posi = -1;
+            while(num > 0){
+                posi++;
+                num /= 2;
+            }
+            
+            ans[posi] = index - subtraction[i] + 1;     // storing the index from where it needs to change bits from left to right
+            index -= subtraction[i];        // changing to the last '1' index from left 
+        }
+        
+        
+        // then we will change the '0' to '1' from right of the string
+        index = k;      // last position of '0' bit from left
+        // for every number which is used to change '0' to '1'
+        for(int i=addition.size() - 1; i>=1; i--){
+            ll num = addition[i];
+            ll posi = -1;
+            while(num > 0){
+                posi++;
+                num /= 2;
+            }
+            
+            ans[posi] = index - addition[i] + 1;        // storing the index from where it needs to chnage bits from left to right
+            index -= addition[i];        // changing to the last '0' index from left 
+        }
+        
+        // printing the indexes
+        cout<<"YES\n";
+        cout<<size<<"\n";
+        for(int i=0; i<size; i++){
+            cout<<ans[i]<<"\n";
+        }
+    }
+}
